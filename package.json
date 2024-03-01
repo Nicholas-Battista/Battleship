@@ -1,0 +1,23 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Battleship webpage built in vanilla js,html,css,webpack, and npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicholas-Battista/Battleship.git"
+  },
+  "author": "Nicholas Battista",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nicholas-Battista/Battleship/issues"
+  },
+  "homepage": "https://github.com/Nicholas-Battista/Battleship#readme",
+  "devDependencies": {
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  }
+}
