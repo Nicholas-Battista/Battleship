@@ -3,6 +3,7 @@ import Ship from "./ship";
 class Gameboard {
   constructor() {
     this.board = Array.from({ length: 10 }, () => Array(10).fill(null));
+    this.allSunk = false;
   }
 
   placeShip(shipLength, row, col, isHorizontal = true) {
@@ -34,9 +35,10 @@ class Gameboard {
   }
 
   recieveAttack(row, col) {
-    const cell = this.board[row][col];
+    let cell = this.board[row][col];
     if (cell == null) {
       console.log("Miss!");
+      cell = "miss";
     } else {
       cell.hit();
       console.log("hit!");
@@ -45,6 +47,20 @@ class Gameboard {
         console.log("ship sunk!");
       }
     }
+  }
+
+  checkAllSunk() {
+    for (let row = 0; row < this.board.length; row++) {
+      for (let col = 0; col < this.board[row].length; col++) {
+        const cell = this.board[row][col];
+        if (cell instanceof Ship) {
+          if (!cell.isSunk()) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   }
 }
 

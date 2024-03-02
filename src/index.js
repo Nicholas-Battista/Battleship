@@ -11,3 +11,4 @@ board.recieveAttack(2, 5);
 board.recieveAttack(3, 5);
 board.recieveAttack(4, 5);
 board.recieveAttack(5, 5);
+board.checkAllSunk();
