@@ -22,6 +22,7 @@ class Player {
 class Computer {
   constructor() {
     this.board = new Gameboard();
+    this.trackShots = new Gameboard();
     this.wonGame = false;
   }
 
@@ -44,12 +45,20 @@ class Computer {
     console.log(this.board);
   }
 
-  attack() {
-    // choose a random num within boards range
-    // if attack hasnt been placed there
-    //  recieve attack (player)
-    // else restart loop
-    // exit loop once attack lands
+  attack(player) {
+    let hit = false;
+
+    while (!hit) {
+      let row = Math.floor(Math.random() * 10);
+      let col = Math.floor(Math.random() * 10);
+      const cell = this.trackShots[row][col];
+
+      if (cell == null) {
+        player.recieveAttack(row, col);
+        cell = "X";
+        hit = true;
+      }
+    }
   }
 }
 
