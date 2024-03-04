@@ -1,6 +1,6 @@
 import Gameboard from "./gameboard";
 import { Player, Computer } from "./players";
-import { generateBoards } from "./DOM";
+import { displayPlayer } from "./DOM";
 
 const comp = new Computer();
 const player = new Player();
