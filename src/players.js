@@ -8,6 +8,7 @@ class Player {
 
   attack(computer, row, col) {
     computer.recieveAttack(row, col);
+    return console.log(computer.checkAllSunk());
   }
 }
 
@@ -43,12 +44,13 @@ class Computer {
     while (!hit) {
       let row = Math.floor(Math.random() * 10);
       let col = Math.floor(Math.random() * 10);
-      const cell = this.trackShots[row][col];
+      let cell = this.trackShots.board[row][col];
 
       if (cell == null) {
         player.recieveAttack(row, col);
         cell = "X";
         hit = true;
+        return console.log(player.checkAllSunk());
       }
     }
   }
