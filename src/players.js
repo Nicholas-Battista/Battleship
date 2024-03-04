@@ -6,15 +6,7 @@ class Player {
     this.wonGame = false;
   }
 
-  populateBoard() {
-    // let user place ships
-    // incremenet the length on each placement
-  }
-
   attack(computer, row, col) {
-    // grab input from user on where to attack
-    // dont allow attacks that have been done prev
-    // recieve attack computer
     computer.recieveAttack(row, col);
   }
 }
