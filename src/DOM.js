@@ -60,7 +60,17 @@ const handleAttack = (row, col, cell) => {
   }
 };
 
-const determineAllSunk = () => {};
+const determineAllSunk = () => {
+  if (computer.board.checkAllSunk) {
+    // update popup / text to say player won
+    return true;
+  } else if (player.board.checkAllSunk) {
+    // update popup / text to say computer won
+    return true;
+  } else {
+    return false;
+  }
+};
 
 computer.populateBoard();
 displayComputer();
