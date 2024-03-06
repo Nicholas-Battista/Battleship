@@ -5,11 +5,6 @@ class Player {
     this.board = new Gameboard();
     this.wonGame = false;
   }
-
-  attack(computer, row, col) {
-    computer.recieveAttack(row, col);
-    return console.log(computer.checkAllSunk());
-  }
 }
 
 class Computer {
@@ -35,7 +30,6 @@ class Computer {
         }
       }
     });
-    console.log(this.board);
   }
 
   attack() {
@@ -47,7 +41,7 @@ class Computer {
       let cell = this.trackShots.board[row][col];
 
       if (cell == null) {
-        cell = "X";
+        this.trackShots.board[row][col] = "X";
         hit = true;
         return [row, col];
       }

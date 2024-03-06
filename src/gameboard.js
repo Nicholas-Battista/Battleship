@@ -17,9 +17,7 @@ class Gameboard {
           this.board[row + i][col] = ship;
         }
       }
-      console.log(this.board);
     } else {
-      console.log("invalid placement");
       return null;
     }
   }
@@ -40,12 +38,9 @@ class Gameboard {
   recieveAttack(row, col) {
     let cell = this.board[row][col];
     if (cell == null) {
-      console.log("Miss!");
       cell = "miss";
     } else {
       cell.hit();
-      console.log("hit!");
-      console.log(cell);
       if (cell.isSunk()) {
         console.log("ship sunk!");
       }
