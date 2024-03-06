@@ -3,14 +3,15 @@ import Ship from "./ship";
 
 const player = new Player();
 const computer = new Computer();
+const divArray = [];
 
 const displayPlayer = () => {
   const playerBoard = document.querySelector(".playerBoard");
 
   for (let i = 0; i < 10; i++) {
+    const subArray = [];
     for (let j = 0; j < 10; j++) {
       const cell = document.createElement("div");
-
       cell.classList.add("computerCell");
 
       if (player.board.board[i][j] instanceof Ship) {
@@ -18,11 +19,11 @@ const displayPlayer = () => {
       }
 
       playerBoard.appendChild(cell);
+      subArray.push(cell);
     }
+    divArray.push(subArray);
   }
 };
-
-// object with two value - dom and refernce - dom creates div - reference stores value inside array
 
 const displayComputer = () => {
   const computerBoard = document.querySelector(".computerBoard");
@@ -32,22 +33,34 @@ const displayComputer = () => {
       const cell = document.createElement("div");
       cell.classList.add("computerCell");
       computerBoard.appendChild(cell);
-      cell.addEventListener("click", () =>
-        handleCellClick(i, j, computer, cell)
-      );
+      cell.addEventListener("click", () => handleAttack(i, j, cell));
     }
   }
 };
 
-const handleCellClick = (row, col, playerOrComputer, cell) => {
-  playerOrComputer.board.recieveAttack(row, col);
+const handleAttack = (row, col, cell) => {
+  computer.board.recieveAttack(row, col);
 
-  if (playerOrComputer.board.board[row][col] == null) {
-    cell.style.backgroundColor = "blue";
-  } else if (playerOrComputer.board.board[row][col] instanceof Ship) {
+  if (computer.board.board[row][col] == null) {
+    cell.style.backgroundColor = "lightblue";
+  } else if (computer.board.board[row][col] instanceof Ship) {
     cell.style.backgroundColor = "red";
   }
+
+  const validAttack = computer.attack();
+  player.board.recieveAttack(validAttack[0], validAttack[1]);
+
+  if (player.board.board[validAttack[0]][validAttack[1]] == null) {
+    divArray[validAttack[0]][validAttack[1]].style.backgroundColor =
+      "lightblue";
+  } else if (
+    player.board.board[validAttack[0]][validAttack[1]] instanceof Ship
+  ) {
+    divArray[validAttack[0]][validAttack[1]].style.backgroundColor = "red";
+  }
 };
+
+const determineAllSunk = () => {};
 
 computer.populateBoard();
 displayComputer();

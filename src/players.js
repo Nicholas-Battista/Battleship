@@ -38,7 +38,7 @@ class Computer {
     console.log(this.board);
   }
 
-  attack(player) {
+  attack() {
     let hit = false;
 
     while (!hit) {
@@ -47,10 +47,9 @@ class Computer {
       let cell = this.trackShots.board[row][col];
 
       if (cell == null) {
-        player.recieveAttack(row, col);
         cell = "X";
         hit = true;
-        return console.log(player.checkAllSunk());
+        return [row, col];
       }
     }
   }
