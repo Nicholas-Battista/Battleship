@@ -35,6 +35,15 @@ const placeShips = (row, col) => {
     null
   ) {
     player.board.placeShip(shipLengths[shipCounter], row, col, isHorizontal);
+    if (isHorizontal) {
+      for (let i = 0; i < shipLengths[shipCounter]; i++) {
+        divArrayPlacement[row][col + i].style.backgroundColor = "lightgreen";
+      }
+    } else if (!isHorizontal) {
+      for (let i = 0; i < shipLengths[shipCounter]; i++) {
+        divArrayPlacement[row + i][col].style.backgroundColor = "lightgreen";
+      }
+    }
     displayPlayer();
     shipCounter++;
   }
