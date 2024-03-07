@@ -50,3 +50,7 @@ body {
 .place-board div {
   border: 1px solid black;
 }
+
+.hovered {
+  background-color: gray;
+}
