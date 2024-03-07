@@ -93,10 +93,11 @@ const displayPlayer = () => {
     const subArray = [];
     for (let j = 0; j < 10; j++) {
       const cell = document.createElement("div");
-      cell.classList.add("computerCell");
+      cell.style.backgroundColor = "#525252";
 
       if (player.board.board[i][j] instanceof Ship) {
         cell.style.backgroundColor = "lightgreen";
+        cell.style.border = "none";
       }
 
       playerBoard.appendChild(cell);
@@ -112,7 +113,7 @@ const displayComputer = () => {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       const cell = document.createElement("div");
-      cell.classList.add("computerCell");
+      cell.style.backgroundColor = "#525252";
       computerBoard.appendChild(cell);
       cell.addEventListener("click", () => handleAttack(i, j, cell));
     }
@@ -123,21 +124,22 @@ const handleAttack = (row, col, cell) => {
   computer.board.recieveAttack(row, col);
 
   if (computer.board.board[row][col] == null) {
-    cell.style.backgroundColor = "lightblue";
+    cell.textContent = "X";
   } else if (computer.board.board[row][col] instanceof Ship) {
     cell.style.backgroundColor = "red";
+    cell.style.border = "none";
   }
 
   const validAttack = computer.attack();
   player.board.recieveAttack(validAttack[0], validAttack[1]);
 
   if (player.board.board[validAttack[0]][validAttack[1]] == null) {
-    divArray[validAttack[0]][validAttack[1]].style.backgroundColor =
-      "lightblue";
+    divArray[validAttack[0]][validAttack[1]].textContent = "X";
   } else if (
     player.board.board[validAttack[0]][validAttack[1]] instanceof Ship
   ) {
     divArray[validAttack[0]][validAttack[1]].style.backgroundColor = "red";
+    divArray[validAttack[0]][validAttack[1]].style.border = "none";
   }
 };
 
@@ -152,6 +154,10 @@ const determineAllSunk = () => {
     return false;
   }
 };
+
+document.querySelector(".start").addEventListener("click", () => {
+  document.querySelector(".place-ships").classList.add("gone");
+});
 
 generatePlaceShipGrid();
 computer.populateBoard();
