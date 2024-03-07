@@ -8,6 +8,9 @@ body {
   --night: #353535;
   --rose: #d5b0ac;
   --moon: #48b8d0;
+  --shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075), 0 2px 2px hsl(0deg 0% 0% / 0.075),
+    0 4px 4px hsl(0deg 0% 0% / 0.075), 0 8px 8px hsl(0deg 0% 0% / 0.075),
+    0 16px 16px hsl(0deg 0% 0% / 0.075);
 }
 
 body {
@@ -38,17 +41,28 @@ body {
   position: absolute;
   top: 53%;
   left: 50%;
-  height: 600px;
+  height: 650px;
   width: 500px;
   transform: translate(-50%, -50%);
-  border: 1px solid black;
+  border: 1px solid var(--moon);
   z-index: 99;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background-color: white;
+  background-color: var(--night);
+}
+
+.place-ships h2 {
+  color: var(--moon);
+  font-size: 2rem;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  border: 1px solid var(--moon);
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 .playerBoard,
@@ -60,6 +74,7 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+  background-color: #535353;
 }
 
 .playerBoard div,
@@ -77,11 +92,33 @@ body {
 }
 
 .hovered {
-  background-color: gray;
+  background-color: white;
 }
 
 .gone {
   display: none;
   height: 0;
   width: 0;
+}
+
+button {
+  background-color: var(--moon);
+  border: 1px solid var(--moon);
+  padding: 1rem 3rem;
+  border-radius: 2rem;
+  font-size: 1.25rem;
+  transition: 0.2s ease-in-out;
+}
+
+button:last-of-type {
+  margin-bottom: 1rem;
+}
+
+button:hover {
+  cursor: pointer;
+  color: white;
+  box-shadow: var(--shadow);
+  border: 1px solid white;
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
 }

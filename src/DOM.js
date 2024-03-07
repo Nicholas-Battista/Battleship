@@ -16,6 +16,7 @@ const generatePlaceShipGrid = () => {
     const subArray = [];
     for (let j = 0; j < 10; j++) {
       const cell = document.createElement("div");
+
       placeBoard.appendChild(cell);
 
       cell.addEventListener("click", () => placeShips(i, j));
@@ -51,8 +52,6 @@ const placeShips = (row, col) => {
 
 const handleHover = (cell, row, col) => {
   const shipLengths = [5, 4, 3, 3, 2];
-
-  cell.classList.add("hovered");
 
   if (isHorizontal) {
     for (let i = 0; i < shipLengths[shipCounter]; i++) {
@@ -97,7 +96,7 @@ const displayPlayer = () => {
 
       if (player.board.board[i][j] instanceof Ship) {
         cell.style.backgroundColor = "lightgreen";
-        cell.style.border = "none";
+        cell.style.border = "1px solid green";
       }
 
       playerBoard.appendChild(cell);
@@ -127,7 +126,7 @@ const handleAttack = (row, col, cell) => {
     cell.textContent = "X";
   } else if (computer.board.board[row][col] instanceof Ship) {
     cell.style.backgroundColor = "red";
-    cell.style.border = "none";
+    cell.style.border = "1px solid red";
   }
 
   const validAttack = computer.attack();
@@ -139,7 +138,7 @@ const handleAttack = (row, col, cell) => {
     player.board.board[validAttack[0]][validAttack[1]] instanceof Ship
   ) {
     divArray[validAttack[0]][validAttack[1]].style.backgroundColor = "red";
-    divArray[validAttack[0]][validAttack[1]].style.border = "none";
+    divArray[validAttack[0]][validAttack[1]].style.border = "1px solid red";
   }
 };
 
