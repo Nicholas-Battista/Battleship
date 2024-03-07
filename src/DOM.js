@@ -4,18 +4,26 @@ import Ship from "./ship";
 const player = new Player();
 const computer = new Computer();
 let divArray = [];
+let divArrayPlacement = [];
 let shipCounter = 0;
 let isHorizontal = true;
 
 const generatePlaceShipGrid = () => {
   const placeBoard = document.querySelector(".place-board");
+  divArrayPlacement = [];
+
   for (let i = 0; i < 10; i++) {
+    const subArray = [];
     for (let j = 0; j < 10; j++) {
       const cell = document.createElement("div");
       placeBoard.appendChild(cell);
 
       cell.addEventListener("click", () => placeShips(i, j));
+      cell.addEventListener("mouseover", () => handleHover(cell, i, j));
+      cell.addEventListener("mouseout", () => removeHover());
+      subArray.push(cell);
     }
+    divArrayPlacement.push(subArray);
   }
 };
 
@@ -30,6 +38,27 @@ const placeShips = (row, col) => {
     displayPlayer();
     shipCounter++;
   }
+};
+
+const handleHover = (cell, row, col) => {
+  const shipLengths = [5, 4, 3, 3, 2];
+
+  cell.classList.add("hovered");
+
+  if (isHorizontal) {
+    for (let i = 0; i < shipLengths[shipCounter]; i++) {
+      divArrayPlacement[row][col + i].classList.add("hovered");
+    }
+  } else if (!isHorizontal) {
+    for (let i = 0; i < shipLengths[shipCounter]; i++) {
+      divArrayPlacement[row + i][col].classList.add("hovered");
+    }
+  }
+};
+
+const removeHover = () => {
+  const hovered = document.querySelectorAll(".hovered");
+  hovered.forEach((item) => item.classList.remove("hovered"));
 };
 
 document
