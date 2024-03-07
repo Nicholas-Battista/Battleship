@@ -24,12 +24,14 @@ class Gameboard {
 
   isPlacementValid(ship, row, col, isHorizontal) {
     for (let i = 0; i < ship.length; i++) {
-      if (row + i >= 10 || col + i >= 10) return false;
-
-      if (isHorizontal && this.board[row][col + i] !== null) {
-        return false;
-      } else if (!isHorizontal && this.board[row + i][col] !== null) {
-        return false;
+      if (isHorizontal) {
+        if (col + i >= 10 || this.board[row][col + i] !== null) {
+          return false;
+        }
+      } else if (!isHorizontal) {
+        if (row + i >= 10 || this.board[row + i][col] !== null) {
+          return false;
+        }
       }
     }
     return true;
