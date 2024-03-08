@@ -121,7 +121,6 @@ const displayComputer = () => {
     }
     compDivArray.push(subArray);
   }
-  computerBoard.addEventListener("click", clickHandler);
 };
 
 const clickHandler = (event) => {
@@ -272,7 +271,13 @@ const restartGame = () => {
 };
 
 document.querySelector(".start").addEventListener("click", () => {
-  document.querySelector(".place-ships").classList.add("gone");
+  if (shipCounter > 4) {
+    document.querySelector(".place-ships").classList.add("gone");
+    document
+      .querySelector(".computerBoard")
+      .addEventListener("click", clickHandler);
+  }
+  return;
 });
 
 generatePlaceShipGrid();
