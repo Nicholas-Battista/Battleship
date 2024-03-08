@@ -44,40 +44,27 @@ body {
 
 .text-container {
   background-color: var(--moon);
-  color: #353535;
+  color: white;
   border-radius: 1rem;
   width: 25%;
   height: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.075),
-    inset 1px 0 1px hsla(0, 0%, 0%, 0.075),
-    inset 0 -1px 1px hsla(0, 0%, 0%, 0.075),
-    inset -1px 0 1px hsla(0, 0%, 0%, 0.075),
-    inset 0 2px 2px hsla(0, 0%, 0%, 0.075),
-    inset 2px 0 2px hsla(0, 0%, 0%, 0.075),
-    inset 0 -2px 2px hsla(0, 0%, 0%, 0.075),
-    inset -2px 0 2px hsla(0, 0%, 0%, 0.075),
-    inset 0 4px 4px hsla(0, 0%, 0%, 0.075),
-    inset 4px 0 4px hsla(0, 0%, 0%, 0.075),
-    inset 0 -4px 4px hsla(0, 0%, 0%, 0.075),
-    inset -4px 0 4px hsla(0, 0%, 0%, 0.075),
-    inset 0 8px 8px hsla(0, 0%, 0%, 0.075),
-    inset 8px 0 8px hsla(0, 0%, 0%, 0.075),
-    inset 0 -8px 8px hsla(0, 0%, 0%, 0.075),
-    inset -8px 0 8px hsla(0, 0%, 0%, 0.075),
-    inset 0 16px 16px hsla(0, 0%, 0%, 0.075),
-    inset 16px 0 16px hsla(0, 0%, 0%, 0.075),
-    inset 0 -16px 16px hsla(0, 0%, 0%, 0.075),
-    inset -16px 0 16px hsla(0, 0%, 0%, 0.075);
+  border: 1px solid white;
+  font-size: 1.2rem;
+}
+
+.text-container p {
+  margin: 0;
+  animation: bounceAnimation 2s infinite;
 }
 
 .board-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10%;
+  gap: 3%;
   width: 100%;
 }
 
@@ -152,8 +139,6 @@ body {
 
 .gone {
   transform: scale(0);
-  height: 0;
-  width: 0;
   transition: 0.5s ease-in;
 }
 
@@ -197,4 +182,22 @@ img {
   color: var(--moon);
   width: 100%;
   border-top: 1px solid var(--moon);
+}
+
+@keyframes bounceAnimation {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-10px);
+  }
+
+  60% {
+    transform: translateY(-5px);
+  }
 }
