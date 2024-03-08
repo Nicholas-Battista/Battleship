@@ -2,6 +2,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+  font-family: "Open Sans", sans-serif;
 }
 
 :root {
@@ -26,14 +27,25 @@ body {
   text-align: center;
   color: var(--moon);
   border-bottom: 1px solid var(--moon);
+  font-size: 2.2rem;
+  letter-spacing: 2px;
 }
 
 .content {
   flex: 1;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* gap: 10%; */
+  align-items: center;
+  width: 100%;
+}
+
+.board-container {
+  display: flex;
+  align-items: center;
   justify-content: center;
   gap: 10%;
-  align-items: center;
   width: 100%;
 }
 
@@ -52,10 +64,11 @@ body {
   align-items: center;
   justify-content: space-between;
   background-color: var(--night);
+  box-shadow: var(--shadow);
 }
 
 .place-ships h2 {
-  color: var(--moon);
+  color: #0a0a0a;
   font-size: 2rem;
   margin: 0;
   width: 100%;
@@ -63,6 +76,7 @@ body {
   border: 1px solid var(--moon);
   padding-bottom: 1rem;
   padding-top: 1rem;
+  background-color: var(--moon);
 }
 
 .playerBoard,
@@ -88,7 +102,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.75rem;
+  color: white;
+}
+
+.playerBoard div:hover,
+.computerBoard div:hover {
+  cursor: pointer;
+  background-color: #48b8d0;
 }
 
 .hovered {
@@ -104,10 +125,11 @@ body {
 button {
   background-color: var(--moon);
   border: 1px solid var(--moon);
-  padding: 1rem 3rem;
+  padding: 0.7rem 3rem;
   border-radius: 2rem;
   font-size: 1.25rem;
   transition: 0.2s ease-in-out;
+  font-family: "Open Sans", sans-serif;
 }
 
 button:last-of-type {
@@ -121,4 +143,8 @@ button:hover {
   border: 1px solid white;
   transform: scale(1.05);
   transition: 0.2s ease-in-out;
+}
+
+button:active {
+  transform: scale(0.95);
 }
