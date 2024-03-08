@@ -4,6 +4,7 @@ import Ship from "./ship";
 const player = new Player();
 const computer = new Computer();
 let divArray = [];
+let compDivArray = [];
 let divArrayPlacement = [];
 let shipCounter = 0;
 let isHorizontal = true;
@@ -109,23 +110,45 @@ const displayComputer = () => {
   const computerBoard = document.querySelector(".computerBoard");
 
   for (let i = 0; i < 10; i++) {
+    let subArray = [];
     for (let j = 0; j < 10; j++) {
       const cell = document.createElement("div");
+      cell.classList.add("compCell");
       computerBoard.appendChild(cell);
-      cell.addEventListener("click", () => handleAttack(i, j, cell));
+      subArray.push(cell);
+    }
+    compDivArray.push(subArray);
+  }
+  computerBoard.addEventListener("click", clickHandler);
+};
+
+const clickHandler = (event) => {
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      if (compDivArray[i][j] === event.target) {
+        if (player.trackShots.board[i][j] !== "X") {
+          const cell = event.target;
+          handleAttack(i, j, cell);
+        }
+      }
     }
   }
 };
 
 const handleAttack = (row, col, cell) => {
   computer.board.recieveAttack(row, col);
+  const compCell = computer.board.board[row][col];
 
   if (computer.board.board[row][col] == null) {
     cell.textContent = "+";
     cell.style.backgroundColor = "#545454";
+    player.trackShots.board[row][col] = "X";
+    displayAttackResults("player", false, compCell);
   } else if (computer.board.board[row][col] instanceof Ship) {
     cell.style.backgroundColor = "red";
     cell.style.border = "1px solid #FF7F7F";
+    player.trackShots.board[row][col] = "X";
+    displayAttackResults("player", true, compCell);
   }
   if (determineAllSunk()) {
     displayWinner(true);
@@ -133,17 +156,53 @@ const handleAttack = (row, col, cell) => {
   }
 
   const validAttack = computer.attack();
+  const playerCell = player.board.board[validAttack[0]][validAttack[1]];
   player.board.recieveAttack(validAttack[0], validAttack[1]);
+  document
+    .querySelector(".computerBoard")
+    .removeEventListener("click", clickHandler);
 
-  if (player.board.board[validAttack[0]][validAttack[1]] == null) {
-    divArray[validAttack[0]][validAttack[1]].textContent = "+";
-  } else if (
-    player.board.board[validAttack[0]][validAttack[1]] instanceof Ship
-  ) {
-    divArray[validAttack[0]][validAttack[1]].style.backgroundColor = "red";
-    divArray[validAttack[0]][validAttack[1]].style.border = "1px solid #FF7F7F";
+  setTimeout(() => {
+    if (playerCell == null) {
+      divArray[validAttack[0]][validAttack[1]].textContent = "+";
+      displayAttackResults("computer", false, cell, playerCell);
+    } else if (playerCell instanceof Ship) {
+      divArray[validAttack[0]][validAttack[1]].style.backgroundColor = "red";
+      divArray[validAttack[0]][validAttack[1]].style.border =
+        "1px solid #FF7F7F";
+      displayAttackResults("computer", true, cell, playerCell);
+    }
+    displayWinner(false);
+
+    document
+      .querySelector(".computerBoard")
+      .addEventListener("click", clickHandler);
+  }, 2000);
+};
+
+const displayAttackResults = (who, hit, compCell, playerCell) => {
+  const text = document.querySelector(".text");
+  if (who === "player") {
+    if (hit) {
+      if (compCell.isSunk()) {
+        text.textContent = `Hit computer ship! Ship sunk! (${compCell.length})`;
+      } else {
+        text.textContent = "Hit computer ship!";
+      }
+    } else {
+      text.textContent = "You missed!";
+    }
+  } else if (who === "computer") {
+    if (hit) {
+      if (playerCell.isSunk()) {
+        text.textContent = `Computer hit your ship! Ship sunk! (${playerCell.length})`;
+      } else {
+        text.textContent = "Computer hit your ship!";
+      }
+    } else {
+      text.textContent = "Computer missed!";
+    }
   }
-  displayWinner(false);
 };
 
 const determineAllSunk = () => {
