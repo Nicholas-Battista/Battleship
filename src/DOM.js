@@ -157,7 +157,7 @@ const handleAttack = (row, col, cell) => {
     document
       .querySelector(".computerBoard")
       .removeEventListener("click", clickHandler);
-    restartGame();
+    document.querySelector(".restart").classList.remove("gone");
     return;
   }
 
@@ -181,7 +181,7 @@ const handleAttack = (row, col, cell) => {
     }
     if (determineAllSunk()) {
       displayWinner(false);
-      restartGame();
+      document.querySelector(".restart").classList.remove("gone");
     } else {
       document
         .querySelector(".computerBoard")
@@ -237,6 +237,11 @@ const displayWinner = (who) => {
   }
   return false;
 };
+
+document.querySelector(".restart").addEventListener("click", () => {
+  restartGame();
+  document.querySelector(".restart").classList.add("gone");
+});
 
 const restartGame = () => {
   player = new Player();
