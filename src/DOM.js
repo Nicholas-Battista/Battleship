@@ -92,7 +92,6 @@ const displayPlayer = () => {
     const subArray = [];
     for (let j = 0; j < 10; j++) {
       const cell = document.createElement("div");
-      cell.style.backgroundColor = "#525252";
 
       if (player.board.board[i][j] instanceof Ship) {
         cell.style.backgroundColor = "lightgreen";
@@ -112,7 +111,6 @@ const displayComputer = () => {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       const cell = document.createElement("div");
-      cell.style.backgroundColor = "#525252";
       computerBoard.appendChild(cell);
       cell.addEventListener("click", () => handleAttack(i, j, cell));
     }
@@ -124,9 +122,10 @@ const handleAttack = (row, col, cell) => {
 
   if (computer.board.board[row][col] == null) {
     cell.textContent = "X";
+    cell.style.backgroundColor = "#545454";
   } else if (computer.board.board[row][col] instanceof Ship) {
     cell.style.backgroundColor = "red";
-    cell.style.border = "1px solid red";
+    cell.style.border = "1px solid #FF7F7F";
   }
 
   const validAttack = computer.attack();
@@ -138,7 +137,7 @@ const handleAttack = (row, col, cell) => {
     player.board.board[validAttack[0]][validAttack[1]] instanceof Ship
   ) {
     divArray[validAttack[0]][validAttack[1]].style.backgroundColor = "red";
-    divArray[validAttack[0]][validAttack[1]].style.border = "1px solid red";
+    divArray[validAttack[0]][validAttack[1]].style.border = "1px solid #FF7F7F";
   }
 };
 
@@ -161,11 +160,6 @@ document.querySelector(".start").addEventListener("click", () => {
 generatePlaceShipGrid();
 computer.populateBoard();
 displayComputer();
-// player.board.placeShip(5, 0, 0, false);
-// player.board.placeShip(4, 0, 1, false);
-// player.board.placeShip(3, 0, 2, false);
-// player.board.placeShip(3, 0, 3, false);
-// player.board.placeShip(2, 0, 4, false);
 displayPlayer();
 
 export { displayPlayer };
