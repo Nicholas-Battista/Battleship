@@ -148,3 +148,18 @@ button:hover {
 button:active {
   transform: scale(0.95);
 }
+
+img {
+  width: 30px;
+  height: 30px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--moon);
+  width: 100%;
+  border-top: 1px solid var(--moon);
+}
