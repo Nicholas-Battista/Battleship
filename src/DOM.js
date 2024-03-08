@@ -1,8 +1,8 @@
 import { Player, Computer } from "./players";
 import Ship from "./ship";
 
-const player = new Player();
-const computer = new Computer();
+let player = new Player();
+let computer = new Computer();
 let divArray = [];
 let compDivArray = [];
 let divArrayPlacement = [];
@@ -11,6 +11,7 @@ let isHorizontal = true;
 
 const generatePlaceShipGrid = () => {
   const placeBoard = document.querySelector(".place-board");
+  placeBoard.innerHTML = "";
   divArrayPlacement = [];
 
   for (let i = 0; i < 10; i++) {
@@ -108,6 +109,7 @@ const displayPlayer = () => {
 
 const displayComputer = () => {
   const computerBoard = document.querySelector(".computerBoard");
+  computerBoard.innerHTML = "";
 
   for (let i = 0; i < 10; i++) {
     let subArray = [];
@@ -152,12 +154,17 @@ const handleAttack = (row, col, cell) => {
   }
   if (determineAllSunk()) {
     displayWinner(true);
+    document
+      .querySelector(".computerBoard")
+      .removeEventListener("click", clickHandler);
+    restartGame();
     return;
   }
 
   const validAttack = computer.attack();
   const playerCell = player.board.board[validAttack[0]][validAttack[1]];
   player.board.recieveAttack(validAttack[0], validAttack[1]);
+
   document
     .querySelector(".computerBoard")
     .removeEventListener("click", clickHandler);
@@ -172,12 +179,15 @@ const handleAttack = (row, col, cell) => {
         "1px solid #FF7F7F";
       displayAttackResults("computer", true, cell, playerCell);
     }
-    displayWinner(false);
-
-    document
-      .querySelector(".computerBoard")
-      .addEventListener("click", clickHandler);
-  }, 2000);
+    if (determineAllSunk()) {
+      displayWinner(false);
+      restartGame();
+    } else {
+      document
+        .querySelector(".computerBoard")
+        .addEventListener("click", clickHandler);
+    }
+  }, 100);
 };
 
 const displayAttackResults = (who, hit, compCell, playerCell) => {
@@ -226,6 +236,25 @@ const displayWinner = (who) => {
     return true;
   }
   return false;
+};
+
+const restartGame = () => {
+  player = new Player();
+  computer = new Computer();
+
+  generatePlaceShipGrid();
+  computer.populateBoard();
+
+  compDivArray = [];
+  displayComputer();
+
+  displayPlayer();
+
+  document.querySelector(".place-ships").classList.remove("gone");
+  shipCounter = 0;
+
+  document.querySelector(".text").textContent =
+    "Click a cell on the enemy board to attack!";
 };
 
 document.querySelector(".start").addEventListener("click", () => {
