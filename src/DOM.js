@@ -187,9 +187,14 @@ const handleAttack = (row, col, cell) => {
       displayWinner(false);
       document.querySelector(".restart").classList.remove("gone");
     } else {
-      document
-        .querySelector(".computerBoard")
-        .addEventListener("click", clickHandler);
+      setTimeout(() => {
+        document.querySelector(".text").textContent =
+          "Click a cell on the enemy board to attack!";
+
+        document
+          .querySelector(".computerBoard")
+          .addEventListener("click", clickHandler);
+      }, 1800);
     }
   }, 3500);
 };
