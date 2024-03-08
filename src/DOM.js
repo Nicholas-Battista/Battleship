@@ -170,6 +170,10 @@ const handleAttack = (row, col, cell) => {
     .removeEventListener("click", clickHandler);
 
   setTimeout(() => {
+    document.querySelector(".text").textContent = "Computer is Aiming!!";
+  }, 1500);
+
+  setTimeout(() => {
     if (playerCell == null) {
       divArray[validAttack[0]][validAttack[1]].textContent = "+";
       displayAttackResults("computer", false, cell, playerCell);
@@ -187,7 +191,7 @@ const handleAttack = (row, col, cell) => {
         .querySelector(".computerBoard")
         .addEventListener("click", clickHandler);
     }
-  }, 100);
+  }, 3500);
 };
 
 const displayAttackResults = (who, hit, compCell, playerCell) => {
