@@ -121,36 +121,52 @@ const handleAttack = (row, col, cell) => {
   computer.board.recieveAttack(row, col);
 
   if (computer.board.board[row][col] == null) {
-    cell.textContent = "X";
+    cell.textContent = "+";
     cell.style.backgroundColor = "#545454";
   } else if (computer.board.board[row][col] instanceof Ship) {
     cell.style.backgroundColor = "red";
     cell.style.border = "1px solid #FF7F7F";
+  }
+  if (determineAllSunk()) {
+    displayWinner(true);
+    return;
   }
 
   const validAttack = computer.attack();
   player.board.recieveAttack(validAttack[0], validAttack[1]);
 
   if (player.board.board[validAttack[0]][validAttack[1]] == null) {
-    divArray[validAttack[0]][validAttack[1]].textContent = "X";
+    divArray[validAttack[0]][validAttack[1]].textContent = "+";
   } else if (
     player.board.board[validAttack[0]][validAttack[1]] instanceof Ship
   ) {
     divArray[validAttack[0]][validAttack[1]].style.backgroundColor = "red";
     divArray[validAttack[0]][validAttack[1]].style.border = "1px solid #FF7F7F";
   }
+  displayWinner(false);
 };
 
 const determineAllSunk = () => {
-  if (computer.board.checkAllSunk) {
-    // update popup / text to say player won
+  if (computer.board.checkAllSunk()) {
     return true;
-  } else if (player.board.checkAllSunk) {
-    // update popup / text to say computer won
+  } else if (player.board.checkAllSunk()) {
     return true;
   } else {
     return false;
   }
+};
+
+const displayWinner = (who) => {
+  if (determineAllSunk()) {
+    const text = document.querySelector(".text");
+    if (who == true) {
+      text.textContent = "You won! You sunk all enemy ships!!";
+    } else if (who == false) {
+      text.textContent = "You lost! The computer sunk all your ships!!";
+    }
+    return true;
+  }
+  return false;
 };
 
 document.querySelector(".start").addEventListener("click", () => {

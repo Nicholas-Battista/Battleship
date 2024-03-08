@@ -50,11 +50,12 @@ class Gameboard {
   }
 
   checkAllSunk() {
-    for (let row = 0; row < this.board.length; row++) {
-      for (let col = 0; col < this.board[row].length; col++) {
+    for (let row = 0; row < 10; row++) {
+      for (let col = 0; col < 10; col++) {
         const cell = this.board[row][col];
         if (cell instanceof Ship) {
-          if (!cell.isSunk()) {
+          cell.isSunk();
+          if (!cell.sunk) {
             return false;
           }
         }
