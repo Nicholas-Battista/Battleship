@@ -28,7 +28,8 @@ body {
   color: var(--moon);
   border-bottom: 1px solid var(--moon);
   font-size: 2.2rem;
-  letter-spacing: 2px;
+  letter-spacing: 5px;
+  font-family: "Russo One", sans-serif;
 }
 
 .content {
@@ -175,6 +176,11 @@ img {
   height: 30px;
 }
 
+img:hover {
+  transform: rotate(360deg);
+  transition: 0.8s ease;
+}
+
 .footer {
   display: flex;
   align-items: center;
@@ -183,6 +189,7 @@ img {
   color: var(--moon);
   width: 100%;
   border-top: 1px solid var(--moon);
+  font-family: "Russo One", sans-serif;
 }
 
 @keyframes bounceAnimation {
